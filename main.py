@@ -1,11 +1,19 @@
 import nmap
 from sys import version
+import configparser
 
-nmap_path = r""  # Write your path to Nmap folder
-nm = nmap.PortScanner(nmap_search_path=(nmap_path,))
+config = configparser.ConfigParser()
 
-target_hosts = ""  # Specify needed hosts to scan
-target_ports = ""  # Specify needed ports in the format "start_port-end_port" e.g. "22-443"
+config.read('cfg.ini')
+
+target_hosts = config['Settings']['target_hosts']
+target_ports = config['Settings']['target_ports']
+if target_hosts.startswith("https://"):
+    target_hosts = target_hosts[len("https://"):]
+    target_hosts = target_hosts[:-1]
+
+# nmap_path = r"" # For strict calling
+nm = nmap.PortScanner()  # nmap_search_path=(nmap_path,)
 
 def run():
     nm.scan(hosts=target_hosts, ports=target_ports)
@@ -27,4 +35,4 @@ def run():
 if __name__ == '__main__':
     print(f"Running program on nmap {nmap.PortScanner.nmap_version(nm)}, python {version}")
     run()
-    input()
+input("Press Enter to exit...")

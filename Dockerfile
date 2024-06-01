@@ -11,4 +11,4 @@ RUN apt-get update && \
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["bash", "-c", "bin/configure.sh && python main.py"]
+CMD ["/bin/sh", "-c", "bin/configure.sh"]

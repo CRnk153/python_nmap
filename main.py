@@ -8,9 +8,11 @@ config.read('cfg.ini')
 
 target_hosts = config['Settings']['target_hosts']
 target_ports = config['Settings']['target_ports']
-if target_hosts.startswith("https://"):
-    target_hosts = target_hosts[len("https://"):]
-    target_hosts = target_hosts[:-1]
+print(target_hosts)
+for target_host in target_hosts:
+    if target_host.startswith("https://"):
+        target_host = target_host[len("https://"):]
+        target_host = target_host[:-1]
 
 # nmap_path = r"" # For strict calling
 nm = nmap.PortScanner()  # nmap_search_path=(nmap_path,)
